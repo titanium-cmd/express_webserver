@@ -1,0 +1,315 @@
+                                           STEP 1 
+Install node
+
+                                            STEP 2 
+initialize node package manager -npm init -y
+contains all packages ablut the project
+brings package.json -works similar to pubspec.yaml in flutter 
+
+                                            STEP 3  
+Create file -eg node_server.js
+
+
+
+ A server is a computer connected to a network of 
+ other workstations called 'clients'. Client computers request information from the server over the network. Servers tend to have more storage, memory
+  and processing power than a normal workstation.
+
+                                            STEP 4 
+  1.   Install Nodemon - in dev dependencies -not needed in production
+
+    -npm i -D nodemon
+
+    NB: -D is for a dev dependency
+
+  2.  add to script in package.json
+
+     "scripts": {
+   "dev ": "nodemon express_server.js", => for development
+   "start": "node  express_server.js"  => for production
+  },
+
+
+3. Run with - npm run dev
+                                             STEP 5 
+Create Server
+
+ A server is a computer connected to a network of 
+ other workstations called 'clients'. Client computers request information from the server over the network. Servers tend to have more storage, memory
+  and processing power than a normal workstation.
+
+const http =require("http");//import http server to help clients(flutter app,web app, etc) communicate with it 
+
+const server= http.createServer();
+
+server.listen(3001);//a room number/space for your server
+ netstat -a - to check servers running
+
+                                             STEP 6
+ Run file 
+node node_server / node_server.js
+shutdown server control c
+
+                                             STEP 7
+ Go to postman and Create a Collection-ie what mimics a frontend
+ 1. Create and name collection
+2. name a request-eg Welcome Home
+3. direct to a local Host -localhost:3001
+4. send request
+
+                                             STEP 8
+handle Request/Server start listening to request and start listening
+1. const server= http.createServer();
+2.Create Get Responce comming in and changes going out
+const server= http.createServer(function(request or req,response or res){
+    
+});
+
+
+3.print Statement in Terminal
+const server= http.createServer(function(request,response){
+    console.log("we got a request")
+});
+
+4. sending a response
+const server= http.createServer(function(request,response){
+   response.end("You got a message.We would get back to you")
+});
+5. Thunderclient.com to replace postman-Thunder Client
+
+
+                                                   STEP 9
+http verbs or methods
+//Type of request clients are making
+4 Main Types
+
+1. POST- sending a resource to server
+2. GET -get a resource
+3. DELETE- delete a resource
+4.PATCH / PUT- update a resource
+
+Nb: controller does all that
+
+called - CRUD OPERATIONS
+
+
+                                                  STEP 10
+ 1. Create a response method to get the type of method client request is                         
+const server= http.createServer(function(req,res){
+   res.end(`We got your ${req.method} message.We would get back to you)`);
+});
+
+2. Check if response sent is different from request made
+
+const server= http.createServer(function(req,res){
+    if(req.method==="GET"){
+        res.end(`We got your ${req.method} message.We would get back to you.`);
+    }else  if(req.method==="POST"){
+        res.end(`We got your ${req.method} message.We would get back to you.`);
+    }else  if(req.method==="PATCH"){
+        res.end(`We got your ${req.method} message.We would get back to you.`);
+    }else  if(req.method==="DELETE"){
+        res.end(`We got your ${req.method} message.We would get back to you.`);
+    }else  if(req.method==="PUT"){
+        res.end(`We got your ${req.method} message.We would get back to you.`);
+    }else {
+        res.end(`we cant handle this unknown request`);
+    }
+
+  
+}
+);
+
+3. Run in postmanto get response
+
+                                                 STEP 11
+ 1. To get a particular resorce you wantto get add ${req.url} creates / in response
+2. HElps specify the particular entity you want to target or all onformation within resource client is trying to hit
+
+
+                                               STEP 12
+   Express Framework
+   -Helps us build node in a better way
+
+   1. Create File -eg express_server.js
+   2. Install Express - npm Install express  / npm i express      
+   3. node_modules folder- Holds all our packages    
+   4. Import express to folder -
+   const express = require("express");
+    const server =express();
+    5. Give a server to it
+    server.listen(3001);         
+                     
+
+                                               STEP 13
+1. Create a request method
+server.post( function(req,res){
+
+});
+server.get( function(req,res){
+    
+});
+server.delete( function(req,res){
+    
+});
+
+
+                                                STEP 13
+   MVC -Model View controller 
+
+  -View- Client -makes request to controller
+              ^
+            server
+            V 
+ -Controller contains logic for our applications-CRUD operations are done by our controller
+   gets what clients want eg gets data from model 
+ 
+
+   -Model has direct access to our database
+   contains info needed
+ 
+   - DB-database
+ 
+  
+                                             STEP 14
+1.Create Models and Controllers Folders
+2. Create files of controllers eg usersControllers.js and Models usersModels.js
+3. create controllers for each process adding users,getting all,updating etc
+const addUser =() => {}
+
+const getAllUsers =() => {}
+
+const deleteUserById =() => {}
+
+const getUserById =() => {}
+
+const updateUserById =() => {}
+
+                                              STEP 15
+Connect to database
+helps create Schemas for our database
+1. Install Mongoose -npm i mongoose
+2. Import mongoose to file 
+const mongoose = require("mongoose");
+3. Connect to mongoose
+ mongoose.connect();
+
+                                               STEP 16
+        Creaating DataBase manually 
+  close and go to browse Collections
+ Create database -input database name eg Rentease and Collection name eg users
+
+
+    With 
+ 1. Login to Atlas/MoongosDb account
+ 2. Select Connect
+ 3. Connect to applications
+ NB: Entities are Collections/Tables in our database and in our MVC Models
+ 4. copy connection string
+ 5.input string in mongoose.connect  and change database name 
+ mongoose.connect("mongoose.connect("mongodb+srv://al_dov:<password>@cluster0.fc4i8.mongodb.net/rentease?retryWrites=true&w=majority");
+");
+
+6. Change password
+7. add asyncronous connection -  two processes happening at the same time
+.then(()=>{
+    console.log("DB is connected");
+})
+.catch((error)=>{ 
+    console.log("DB is connected: ", error.message);
+
+});
+
+mongoose.connect("mongodb+srv://al_dov:0203754879@cluster0.fc4i8.mongodb.net/rentease?retryWrites=true&w=majority")
+.then(()=>{
+    console.log("DB is connected");
+})
+.catch((error)=>{ 
+    console.log("DB is connected: ", error.message);
+
+});
+
+Error Messages -go to
+Authentication Problems =DadaBase access
+Network - Networt access
+
+                                            STEP 17
+Start Creating Schemas -helps us structure Collection
+
+1. go to Models eg user Models
+2. import mongoose - const mongoose =require("mongoose");
+NB: fields we created in ER diagram will be the Schemas
+3. Create Schema format 
+const usersSchema = mongoose.Schema({
+
+    
+})
+
+4. Add Schema attributes ie fields in ER diagram
+
+const usersSchema = mongoose.Schema({
+
+    fullname:{
+        type: String
+    },
+    email:{
+        type: String
+    },
+    password:{
+        type: String
+    },
+    phone_number:{
+        type: String
+    },
+
+})
+
+5. to make an attribute 
+unique -- 
+ unique:true
+required --
+    require: true
+
+6. const usersModel = mongoose.model("user",usersSchema);
+    "user" => will create a collection in your mongoose database
+
+    7. Export Model
+    module.export=usersModel;
+
+
+                                      STEP 18
+    Inport Models to controllers
+ 1.-const usersModel =require("../models/usersModels");
+
+2. Export all controllers
+module.exports= { 
+    addUser,
+    getAllUsers,
+    deleteUserById,
+    getAllUsers,
+    updateUserById
+}
+
+3. inport controller to server and match to requests inside file
+const usersController =require("./controllers/usersControllers")
+
+4. Inside file input controllers in CRUD servers
+server.post("/users ", usersController.addUser);
+server.get("/users ", usersController.getAllUsers );
+server.delete("/users ", usersController.deleteUserById);
+server.put("/users/:id ", usersController.updateUserById);
+server.get("/users/: id ", usersController.getUserById);
+
+5. Add to your Collection
+
+usersModel.create(req.body)
+
+eg. 
+const addUser =(req,res) => {
+    usersModel.create(req.body)
+}
+
+
+                                               STEP 18
+
+
