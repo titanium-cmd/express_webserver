@@ -8,22 +8,50 @@ const addUser = async (req, res) => {
       success: true, message: 'New user is added successfully'
     });
   } catch (error) {
-    res.status(400).json({success: false, message: error.message});    
+    res.status(400).json({ success: false, message: error.message });
   }
 }
 
-const getAllUsers = (req, res) => {}
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await usersModel.find();
+    return res.status(200).json({ success: true, users })
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+}
 
-const deleteUserById = (req, res) => {}
+const deleteUserById = async (req, res) => {
+  try {
+    await usersModel.findByIdAndDelete(req.params.id)
+    return res.status(200).json({ success: true, message: 'User deleted successfully' })
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+}
 
-const getUserById = (req, res) => {}
+const getUserById = async (req, res) => {
+  try {
+    const user = await usersModel.findById(req.params.id)
+    return res.status(200).json({ success: true, user });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+}
 
-const updateUserById = (req, res) => {}
+const updateUserById = async (req, res) => {
+  try {
+    await usersModel.findByIdAndUpdate(req.params.id, req.body)
+    return res.status(200).json({ success: true, message: 'Updated user successfully' });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+}
 
 module.exports = {
-  addUser, 
-  getAllUsers, 
-  deleteUserById, 
-  getUserById, 
+  addUser,
+  getAllUsers,
+  deleteUserById,
+  getUserById,
   updateUserById
 };
