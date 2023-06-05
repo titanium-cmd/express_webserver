@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_URL)
     console.log('DB is now connected');
   })
   .catch((error) => {
-    console.log('DB not connected: ', error.message);
+    console.log(`DB not connected: ${process.env.MONGO_URL}`, error.message);
   });
 
 const server = express();
@@ -16,4 +16,6 @@ server.use(express.json());
 server.get('/', (_, res) => res.status(200).json({ success: true, message: 'Welcome to My Express Server' }));
 server.use('/users', usersRoutes);
 
-server.listen(8080);
+server.listen(5000, () => {
+  console.log('SERVER listening on port');
+});

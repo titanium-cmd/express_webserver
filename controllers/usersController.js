@@ -1,7 +1,6 @@
 const usersModel = require('../models/usersModel');
 
 const addUser = async (req, res) => {
-  console.log('send...');
   try {
     await usersModel.create(req.body);
     res.status(200).json({
