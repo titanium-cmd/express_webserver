@@ -4,7 +4,7 @@ FROM node:14-alpine
 WORKDIR /express_server
 
 # copy all the files to the container
-COPY . .
+COPY . /express_server
 
 # install dependencies
 RUN npm install
