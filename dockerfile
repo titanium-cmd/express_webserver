@@ -1,10 +1,12 @@
 FROM node:14-alpine
 
 # set a directory for the app
-WORKDIR /express_server
+WORKDIR /var/app
+
+COPY ./packge.json ./
 
 # copy all the files to the container
-COPY . /express_server
+COPY . .
 
 # install dependencies
 RUN npm install
